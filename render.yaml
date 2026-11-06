@@ -1,0 +1,25 @@
+# Render Blueprint: New > Blueprint in the Render dashboard, pick this repo.
+# Values marked "sync: false" are secrets: Render asks for them when the Blueprint is created
+# (they never live in git). See docs/deploy.md.
+services:
+  - type: web
+    name: family-hub
+    runtime: docker
+    plan: free
+    region: frankfurt          # closest Render region to Cyprus; put the Neon project in AWS Frankfurt too
+    branch: main
+    autoDeploy: true           # every push to main redeploys
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: DATABASE_URL        # Neon's string as is: postgresql://user:pass@host/db?sslmode=require
+        sync: false
+      - key: APP_ADMIN_USERNAME  # first login, only used while the member table is empty
+        sync: false
+      - key: APP_ADMIN_PASSWORD
+        sync: false
+      - key: APP_ADMIN_NAME
+        value: Admin
+      - key: REMEMBER_ME_KEY     # random, generated once by Render; changing it logs everyone out
+        generateValue: true

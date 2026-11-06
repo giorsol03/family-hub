@@ -18,7 +18,7 @@ Each milestone = one feature, backend + frontend together, ends with all checks 
 | 5 | Weekly meal plan | ✅ done | `meal_plan_entry`; Mon–Sun × slot grid (stacked days on phones); "add ingredients to grocery list?" modal (checkboxes, select all / none) reusing the M2 merging service, source=RECIPE |
 | 6 | Calendar | ✅ done | `event`, `event_attendee`; month + week views; tap a day to add; meal-plan entries shown read-only; member filter |
 | 7 | Daily goals | ✅ done | `goal`, `goal_check`; monthly habit grid (horizontal scroll on phones), tap to tick; per-person filter / "Everyone" grouping; streak + % this month |
-| 8 | Postgres/Neon + deploy | | `prod` profile from env vars; Testcontainers Postgres run of all migrations; multi-stage Dockerfile (Node build → Spring jar); SPA fallback; Render deploy; Europe/Nicosia verified |
+| 8 | Postgres/Neon + deploy | ✅ code done — first deploy pending (see `docs/deploy.md`) | `prod` profile from env vars; Testcontainers Postgres run of all migrations; multi-stage Dockerfile (Node build → Spring jar); SPA fallback; Render deploy; Europe/Nicosia verified |
 
 ## Milestone 1b — REST API + React shell
 

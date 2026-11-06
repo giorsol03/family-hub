@@ -1,0 +1,2 @@
+org.springframework.boot.EnvironmentPostProcessor=\
+com.solomonidis.familyhub.common.config.ProductionEnvironmentCheck

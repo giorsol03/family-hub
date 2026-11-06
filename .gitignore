@@ -6,6 +6,9 @@
 # --- Local H2 database (dev profile) ---
 data/
 
+# --- Built React app, copied in by the Dockerfile (never committed) ---
+src/main/resources/static/
+
 # --- Maven ---
 target/
 pom.xml.tag

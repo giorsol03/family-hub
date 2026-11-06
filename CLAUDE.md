@@ -37,7 +37,10 @@ Frontend — `frontend/src/`:
 - Prod: one deployable. Dockerfile builds `frontend/` with Node, copies `dist/` into Spring's `static/`, and Spring serves the SPA (non-`/api` routes forward to `index.html`).
 
 ## Config
-- DB from env vars: `DATABASE_URL` (jdbc:postgresql://...?sslmode=require), `DATABASE_USERNAME`, `DATABASE_PASSWORD`
+- Profiles: `dev` (default, H2 file DB in `./data`), `test` (H2 in memory), `prod` (Neon; `SPRING_PROFILES_ACTIVE=prod`, set in the Dockerfile)
+- DB from env vars: `DATABASE_URL` (Neon's `postgresql://user:pass@host/db?sslmode=require` as is, or `jdbc:postgresql://...` + `DATABASE_USERNAME` / `DATABASE_PASSWORD`).
+  `ProductionEnvironmentCheck` converts the Neon form and fails fast listing missing vars (incl. `REMEMBER_ME_KEY`, ≥ 32 chars)
+- Deployment: `Dockerfile` + `render.yaml` (Render Blueprint); step-by-step in `docs/deploy.md`. `src/main/resources/static/` is build output (gitignored)
 - `server.port=${PORT:8080}`
 - `spring.jpa.hibernate.ddl-auto=validate` — schema changes only via new Flyway migrations, never edit an applied migration
 - First member from `APP_ADMIN_USERNAME` / `APP_ADMIN_PASSWORD` when the member table is empty
