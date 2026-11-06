@@ -3,6 +3,7 @@
 Personal household website (chores, groceries, recipes/meal plan, calendar, daily goals).
 Full requirements: @docs/requirements.md
 Build plan / milestones: @docs/plan.md
+Project notes / handover (what's built, decisions, full deploy guide): @docs/project-notes.md
 
 ## Stack
 - **Backend** (repo root): Java 21, Spring Boot 4.x, Maven (use the wrapper: `.\mvnw.cmd` on Windows, `./mvnw` elsewhere)
