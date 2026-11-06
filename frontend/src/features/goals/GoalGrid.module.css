@@ -1,0 +1,67 @@
+.table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* First column stays put while the days scroll sideways. */
+.goalCell {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--mantine-color-body);
+  text-align: left;
+  font-weight: normal;
+  min-width: 150px;
+  max-width: 170px;
+  padding: 4px 8px 4px 0;
+  border-bottom: 1px solid var(--mantine-color-default-border);
+}
+
+.ownerHead {
+  padding-top: 12px;
+  border-bottom: 1px solid var(--mantine-color-default-border);
+}
+
+.dayHead {
+  width: 30px;
+  min-width: 30px;
+  text-align: center;
+  padding: 2px 0;
+
+  &[data-today] {
+    color: var(--mantine-primary-color-filled);
+  }
+}
+
+.cellTd {
+  padding: 2px;
+  text-align: center;
+  border-bottom: 1px solid var(--mantine-color-default-border);
+
+  &[data-today] {
+    background: var(--mantine-primary-color-light);
+  }
+}
+
+.cell {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: 1.5px solid var(--mantine-color-default-border);
+  display: block;
+  margin: 0 auto;
+
+  &[data-state='open']:hover {
+    border-color: var(--mantine-primary-color-filled);
+  }
+
+  &[data-state='future'],
+  &[data-state='beforeStart'] {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  &[data-state='beforeStart'] {
+    border-style: dashed;
+  }
+}

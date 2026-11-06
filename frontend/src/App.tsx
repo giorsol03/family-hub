@@ -6,6 +6,7 @@ import { CalendarPage } from './features/calendar/CalendarPage'
 import { ChoresPage } from './features/chores/ChoresPage'
 import { ChoreTemplatesPage } from './features/chores/ChoreTemplatesPage'
 import { RequireAuth } from './features/auth/RequireAuth'
+import { GoalsPage } from './features/goals/GoalsPage'
 import { GroceryDefaultsPage } from './features/groceries/GroceryDefaultsPage'
 import { GroceryListPage } from './features/groceries/GroceryListPage'
 import { HomePage } from './features/home/HomePage'
@@ -29,6 +30,7 @@ export default function App() {
           <Route path="groceries/defaults" element={<GroceryDefaultsPage />} />
           <Route path="meal-plan" element={<MealPlanPage />} />
           <Route path="calendar" element={<CalendarPage />} />
+          <Route path="goals" element={<GoalsPage />} />
           <Route path="recipes" element={<RecipesPage />} />
           <Route path="recipes/new" element={<RecipeFormPage />} />
           <Route path="recipes/:id" element={<RecipeDetailPage />} />

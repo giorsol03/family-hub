@@ -260,6 +260,51 @@ export interface EventInput {
   attendeeIds: number[]
 }
 
+// ---- goals ----
+
+/** "2026-11" */
+export type YearMonth = string
+
+export interface Goal {
+  id: number
+  name: string
+  owner: MemberSummary
+  active: boolean
+  startDate: IsoDate
+  targetDaysPerWeek: number | null
+}
+
+export interface GoalStats {
+  /** consecutive done days up to today (or yesterday while today isn't ticked yet) */
+  streak: number
+  doneThisMonth: number
+  eligibleDays: number
+  /** null when the month has no days to count yet */
+  percentThisMonth: number | null
+  doneThisWeek: number
+}
+
+export interface GoalRow {
+  goal: Goal
+  /** ticked days in the requested month */
+  doneDates: IsoDate[]
+  stats: GoalStats
+}
+
+export interface GoalMonth {
+  month: YearMonth
+  today: IsoDate
+  daysInMonth: number
+  rows: GoalRow[]
+}
+
+export interface GoalInput {
+  name: string
+  ownerId: number
+  startDate: IsoDate | null
+  targetDaysPerWeek: number | null
+}
+
 export interface MemberInput {
   name: string
   username: string

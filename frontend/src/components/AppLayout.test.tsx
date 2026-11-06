@@ -24,14 +24,14 @@ describe('AppLayout', () => {
     expect(screen.getByLabelText('Account menu')).toHaveTextContent('Admin')
   })
 
-  it('links enabled sections and disables the ones not built yet', () => {
+  it('links every enabled section; disabled ones (if any) are marked "Soon" and not links', () => {
     renderLayout('/')
     const sidebar = screen.getByLabelText('Sections')
 
-    expect(within(sidebar).getByRole('link', { name: /Members/ })).toHaveAttribute('href', '/members')
-    expect(within(sidebar).getByRole('link', { name: /Groceries/ })).toHaveAttribute('href', '/groceries')
-    expect(within(sidebar).queryByRole('link', { name: /Goals/ })).not.toBeInTheDocument()
-    expect(within(sidebar).getAllByText('Soon').length).toBe(NAV_ITEMS.filter((i) => !i.enabled).length)
+    for (const item of NAV_ITEMS.filter((i) => i.enabled)) {
+      expect(within(sidebar).getByRole('link', { name: new RegExp(item.label) })).toHaveAttribute('href', item.path)
+    }
+    expect(within(sidebar).queryAllByText('Soon')).toHaveLength(NAV_ITEMS.filter((i) => !i.enabled).length)
   })
 })
 

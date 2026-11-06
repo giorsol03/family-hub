@@ -28,7 +28,7 @@ export const NAV_ITEMS: NavItem[] = [
   { key: 'meals', label: 'Meals', path: '/meal-plan', icon: IconToolsKitchen2, enabled: true, bottomBar: true },
   { key: 'recipes', label: 'Recipes', path: '/recipes', icon: IconBook, enabled: true, bottomBar: false },
   { key: 'calendar', label: 'Calendar', path: '/calendar', icon: IconCalendar, enabled: true, bottomBar: true },
-  { key: 'goals', label: 'Goals', path: '/goals', icon: IconTargetArrow, enabled: false, bottomBar: true },
+  { key: 'goals', label: 'Goals', path: '/goals', icon: IconTargetArrow, enabled: true, bottomBar: true },
   { key: 'members', label: 'Members', path: '/members', icon: IconUsers, enabled: true, bottomBar: false },
 ]
 
