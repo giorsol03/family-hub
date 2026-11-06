@@ -6,6 +6,7 @@ import com.solomonidis.familyhub.grocery.GroceryDtos.AddItemResponse;
 import com.solomonidis.familyhub.grocery.GroceryDtos.GroceryItemRequest;
 import com.solomonidis.familyhub.grocery.GroceryDtos.GroceryItemResponse;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Clock;
 import java.util.List;
 import java.util.Optional;
@@ -61,6 +62,25 @@ public class GroceryService {
         Quantity q = d.getDefaultQuantity();
         return add(new GroceryItemRequest(d.getName(), d.getCategory(), q.amount(), q.unit(),
             d.getPreferredMerchant(), null), GrocerySource.DEFAULT);
+    }
+
+    /**
+     * Adds a recipe ingredient (source RECIPE), through the normal merging rule.
+     * <ul>
+     *   <li>Pieces and packs are rounded up to whole numbers (half an onion → 1 onion).</li>
+     *   <li>Without a category, the category and shop of an active favourite with the same name are used
+     *       (else OTHER / any shop).</li>
+     *   <li>{@code note} (e.g. "For Pancakes") is kept on the line; merged lines collect each note.</li>
+     * </ul>
+     */
+    public AddItemResponse addIngredient(String name, BigDecimal quantity, QuantityUnit unit,
+                                         GroceryCategory category, String note) {
+        BigDecimal amount = unit.wholeNumbersOnly() ? quantity.setScale(0, RoundingMode.CEILING) : quantity;
+        Optional<GroceryDefault> favourite = defaultRepository.findFirstByNameIgnoreCaseAndActiveTrue(name.trim());
+        GroceryCategory resolvedCategory = category != null ? category
+            : favourite.map(GroceryDefault::getCategory).orElse(GroceryCategory.OTHER);
+        Merchant merchant = favourite.map(GroceryDefault::getPreferredMerchant).orElse(null);
+        return add(new GroceryItemRequest(name, resolvedCategory, amount, unit, merchant, note), GrocerySource.RECIPE);
     }
 
     /** Plain edit — no merging, so the user stays in control of what they typed. */

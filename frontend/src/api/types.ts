@@ -185,6 +185,37 @@ export interface RecipeInput {
   ingredients: Ingredient[]
 }
 
+// ---- meal plan ----
+
+export const MEAL_SLOTS = ['BREAKFAST', 'LUNCH', 'DINNER'] as const
+export type MealSlot = (typeof MEAL_SLOTS)[number]
+
+export interface MealPlanEntry {
+  id: number
+  date: IsoDate
+  slot: MealSlot
+  recipe: { id: number; title: string; imageUrl: string | null; prepMinutes: number | null }
+  plannedBy: MemberSummary | null
+}
+
+export interface MealPlanWeek {
+  weekStart: IsoDate
+  weekEnd: IsoDate
+  today: IsoDate
+  entries: MealPlanEntry[]
+}
+
+export interface PlannedResult {
+  entry: MealPlanEntry
+  ingredients: Ingredient[]
+}
+
+export interface AddToGroceriesResult {
+  added: number
+  merged: number
+  items: GroceryItem[]
+}
+
 export interface MemberInput {
   name: string
   username: string

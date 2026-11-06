@@ -16,9 +16,15 @@ export function RecipeDetailPage() {
   const [confirmDelete, setConfirmDelete] = useState(false)
 
   async function handleDelete() {
-    await remove.mutateAsync(id)
-    notifications.show({ color: 'teal', message: `${recipe?.title} deleted` })
-    navigate('/recipes', { replace: true })
+    try {
+      await remove.mutateAsync(id)
+      notifications.show({ color: 'teal', message: `${recipe?.title} deleted` })
+      navigate('/recipes', { replace: true })
+    } catch (e) {
+      // e.g. 409: the recipe is still on the meal plan — the message says when
+      setConfirmDelete(false)
+      notifications.show({ color: 'red', message: e instanceof Error ? e.message : 'Could not delete', autoClose: 8000 })
+    }
   }
 
   const back = (

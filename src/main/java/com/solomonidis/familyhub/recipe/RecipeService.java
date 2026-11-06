@@ -1,6 +1,8 @@
 package com.solomonidis.familyhub.recipe;
 
+import com.solomonidis.familyhub.common.BusinessRuleException;
 import com.solomonidis.familyhub.common.NotFoundException;
+import org.springframework.http.HttpStatus;
 import com.solomonidis.familyhub.recipe.RecipeDtos.IngredientDto;
 import com.solomonidis.familyhub.recipe.RecipeDtos.RecipeRequest;
 import com.solomonidis.familyhub.recipe.RecipeDtos.RecipeResponse;
@@ -16,9 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class RecipeService {
 
     private final RecipeRepository repository;
+    private final List<RecipeUsage> usages;
 
-    public RecipeService(RecipeRepository repository) {
+    public RecipeService(RecipeRepository repository, List<RecipeUsage> usages) {
         this.repository = repository;
+        this.usages = usages;
     }
 
     /**
@@ -65,8 +69,16 @@ public class RecipeService {
         return RecipeResponse.of(recipe);
     }
 
+    /** Refused (409) while the recipe is still planned; other references are cleaned up first. */
     public void delete(Long id) {
-        repository.delete(find(id));
+        Recipe recipe = find(id);
+        List<String> blocking = usages.stream().flatMap(u -> u.blockingUsages(id).stream()).toList();
+        if (!blocking.isEmpty()) {
+            throw new BusinessRuleException(null, "“" + recipe.getTitle() + "” is " + String.join(", ", blocking)
+                + ". Remove it from there first.", HttpStatus.CONFLICT);
+        }
+        usages.forEach(u -> u.beforeRecipeDeleted(id));
+        repository.delete(recipe);
     }
 
     private void apply(Recipe recipe, RecipeRequest request) {

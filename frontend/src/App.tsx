@@ -9,6 +9,7 @@ import { GroceryDefaultsPage } from './features/groceries/GroceryDefaultsPage'
 import { GroceryListPage } from './features/groceries/GroceryListPage'
 import { HomePage } from './features/home/HomePage'
 import { MemberFormPage } from './features/members/MemberFormPage'
+import { MealPlanPage } from './features/mealplan/MealPlanPage'
 import { MembersPage } from './features/members/MembersPage'
 import { RecipeDetailPage } from './features/recipes/RecipeDetailPage'
 import { RecipeFormPage } from './features/recipes/RecipeFormPage'
@@ -25,6 +26,7 @@ export default function App() {
           <Route path="chores/templates" element={<ChoreTemplatesPage />} />
           <Route path="groceries" element={<GroceryListPage />} />
           <Route path="groceries/defaults" element={<GroceryDefaultsPage />} />
+          <Route path="meal-plan" element={<MealPlanPage />} />
           <Route path="recipes" element={<RecipesPage />} />
           <Route path="recipes/new" element={<RecipeFormPage />} />
           <Route path="recipes/:id" element={<RecipeDetailPage />} />
