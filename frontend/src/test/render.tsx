@@ -19,7 +19,7 @@ export function renderWithProviders(ui: ReactElement, { route = '/', me = ADMIN 
   const queryClient = new QueryClient({ defaultOptions: { queries: { retry: false } } })
   queryClient.setQueryData(ME_QUERY_KEY, me)
   return render(
-    <MantineProvider theme={theme}>
+    <MantineProvider theme={theme} env="test">
       <QueryClientProvider client={queryClient}>
         <MemoryRouter initialEntries={[route]}>{ui}</MemoryRouter>
       </QueryClientProvider>

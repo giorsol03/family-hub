@@ -24,7 +24,7 @@ export interface NavItem {
 export const NAV_ITEMS: NavItem[] = [
   { key: 'home', label: 'Home', path: '/', icon: IconHome, enabled: true, bottomBar: true },
   { key: 'chores', label: 'Chores', path: '/chores', icon: IconChecklist, enabled: false, bottomBar: true },
-  { key: 'groceries', label: 'Groceries', path: '/groceries', icon: IconShoppingCart, enabled: false, bottomBar: true },
+  { key: 'groceries', label: 'Groceries', path: '/groceries', icon: IconShoppingCart, enabled: true, bottomBar: true },
   { key: 'meals', label: 'Meals', path: '/meal-plan', icon: IconToolsKitchen2, enabled: false, bottomBar: true },
   { key: 'recipes', label: 'Recipes', path: '/recipes', icon: IconBook, enabled: false, bottomBar: false },
   { key: 'calendar', label: 'Calendar', path: '/calendar', icon: IconCalendar, enabled: false, bottomBar: true },

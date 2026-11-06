@@ -23,6 +23,13 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 })
 
+// Mantine's autosize Textarea listens for web-font loading
+if (!('fonts' in document)) {
+  Object.defineProperty(document, 'fonts', {
+    value: { addEventListener: () => {}, removeEventListener: () => {}, ready: Promise.resolve() },
+  })
+}
+
 class ResizeObserver {
   observe() {}
   unobserve() {}

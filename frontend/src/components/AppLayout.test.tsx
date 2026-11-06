@@ -29,7 +29,8 @@ describe('AppLayout', () => {
     const sidebar = screen.getByLabelText('Sections')
 
     expect(within(sidebar).getByRole('link', { name: /Members/ })).toHaveAttribute('href', '/members')
-    expect(within(sidebar).queryByRole('link', { name: /Groceries/ })).not.toBeInTheDocument()
+    expect(within(sidebar).getByRole('link', { name: /Groceries/ })).toHaveAttribute('href', '/groceries')
+    expect(within(sidebar).queryByRole('link', { name: /Chores/ })).not.toBeInTheDocument()
     expect(within(sidebar).getAllByText('Soon').length).toBe(NAV_ITEMS.filter((i) => !i.enabled).length)
   })
 })

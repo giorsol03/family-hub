@@ -1,16 +1,12 @@
 package com.solomonidis.familyhub.member;
 
-/** A member change that breaks a business rule; {@code field} is the form field to show it on (or null). */
-public class MemberException extends RuntimeException {
+import com.solomonidis.familyhub.common.BusinessRuleException;
+import org.springframework.http.HttpStatus;
 
-    private final String field;
+/** A member change that breaks a business rule. A taken username is a 409 conflict; anything else is 400. */
+public class MemberException extends BusinessRuleException {
 
     public MemberException(String field, String message) {
-        super(message);
-        this.field = field;
-    }
-
-    public String getField() {
-        return field;
+        super(field, message, "username".equals(field) ? HttpStatus.CONFLICT : HttpStatus.BAD_REQUEST);
     }
 }

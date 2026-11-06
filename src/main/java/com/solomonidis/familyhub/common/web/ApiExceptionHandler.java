@@ -1,7 +1,7 @@
 package com.solomonidis.familyhub.common.web;
 
+import com.solomonidis.familyhub.common.BusinessRuleException;
 import com.solomonidis.familyhub.common.NotFoundException;
-import com.solomonidis.familyhub.member.MemberException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
@@ -31,11 +31,9 @@ public class ApiExceptionHandler {
         return problem;
     }
 
-    @ExceptionHandler(MemberException.class)
-    public ProblemDetail handleMember(MemberException ex) {
-        boolean conflict = "username".equals(ex.getField());
-        ProblemDetail problem = ProblemDetail.forStatusAndDetail(
-            conflict ? HttpStatus.CONFLICT : HttpStatus.BAD_REQUEST, ex.getMessage());
+    @ExceptionHandler(BusinessRuleException.class)
+    public ProblemDetail handleBusinessRule(BusinessRuleException ex) {
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(ex.getStatus(), ex.getMessage());
         if (ex.getField() != null) {
             problem.setProperty("fieldErrors", Map.of(ex.getField(), ex.getMessage()));
         }
