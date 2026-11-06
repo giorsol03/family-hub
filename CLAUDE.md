@@ -4,7 +4,7 @@ Personal household website (chores, groceries, recipes/meal plan, calendar, dail
 Full requirements: @docs/requirements.md
 
 ## Stack
-- Java 21, Spring Boot 3.x, Maven (use the Maven wrapper: `./mvnw` / `mvnw.cmd`)
+- Java 21, Spring Boot 4.x, Maven (use the Maven wrapper: `./mvnw` / `mvnw.cmd`)
 - Spring Web, Spring Data JPA, Spring Security (form login), Validation, Thymeleaf, Actuator
 - PostgreSQL (hosted on Neon) with Flyway migrations in `src/main/resources/db/migration`
 - Thymeleaf + Bootstrap 5 via CDN; small amounts of htmx / vanilla JS. No SPA framework.

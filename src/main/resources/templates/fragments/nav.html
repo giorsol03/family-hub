@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- Top bar: full links on desktop, hamburger menu on phones -->
+<nav th:fragment="topnav" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-semibold" th:href="@{/}"><i class="bi bi-house-heart"></i> Family Hub</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+                aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item" th:each="item : ${navItems}">
+                    <a th:if="${item.enabled}" class="nav-link" th:href="@{${item.path}}"
+                       th:classappend="${activeNav == item.key} ? 'active'"
+                       th:attr="aria-current=${activeNav == item.key} ? 'page'">
+                        <i th:class="|bi bi-${item.icon}|"></i> <span th:text="${item.label}">Item</span>
+                    </a>
+                    <span th:unless="${item.enabled}" class="nav-link disabled" title="Coming soon">
+                        <i th:class="|bi bi-${item.icon}|"></i> <span th:text="${item.label}">Item</span>
+                    </span>
+                </li>
+            </ul>
+            <div class="d-flex align-items-center gap-2 py-2 py-lg-0" th:if="${currentMember != null}">
+                <span class="text-light small">
+                    <span class="member-dot" th:style="|background-color: ${currentMember.color}|"></span>
+                    <span th:text="${currentMember.name}">Me</span>
+                </span>
+                <form th:action="@{/logout}" method="post" class="m-0">
+                    <button type="submit" class="btn btn-sm btn-outline-light">
+                        <i class="bi bi-box-arrow-right"></i> Log out
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Bottom tab bar, phones only -->
+<nav th:fragment="bottomnav" class="bottom-nav d-lg-none fixed-bottom bg-body border-top">
+    <div class="d-flex justify-content-around">
+        <th:block th:each="item : ${navItems}" th:if="${item.bottomBar}">
+            <a th:if="${item.enabled}" th:href="@{${item.path}}" class="bottom-nav-item"
+               th:classappend="${activeNav == item.key} ? 'active'">
+                <i th:class="|bi bi-${item.icon}|"></i>
+                <span th:text="${item.label}">Item</span>
+            </a>
+            <span th:unless="${item.enabled}" class="bottom-nav-item disabled" title="Coming soon">
+                <i th:class="|bi bi-${item.icon}|"></i>
+                <span th:text="${item.label}">Item</span>
+            </span>
+        </th:block>
+    </div>
+</nav>
+
+</body>
+</html>

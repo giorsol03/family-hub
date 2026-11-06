@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: layout(~{::title}, ~{::main})}">
+<head><title>Member · Family Hub</title></head>
+<body>
+<main>
+    <h1 class="h4 mb-3" th:text="${memberId == null} ? 'Add member' : 'Edit member'">Add member</h1>
+
+    <form th:object="${form}" method="post" class="card card-body form-narrow"
+          th:action="${memberId == null} ? @{/members} : @{/members/{id}(id=${memberId})}">
+
+        <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger py-2">
+            <div th:each="err : ${#fields.globalErrors()}" th:text="${err}">Error</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" th:field="*{name}" class="form-control"
+                   th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'" required>
+            <div class="invalid-feedback" th:errors="*{name}">Error</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" th:field="*{username}" class="form-control" autocapitalize="none"
+                   th:classappend="${#fields.hasErrors('username')} ? 'is-invalid'" required>
+            <div class="invalid-feedback" th:errors="*{username}">Error</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="color" class="form-label">Colour</label>
+            <input type="color" th:field="*{color}" class="form-control form-control-color"
+                   th:classappend="${#fields.hasErrors('color')} ? 'is-invalid'">
+            <div class="invalid-feedback" th:errors="*{color}">Error</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" th:field="*{password}" class="form-control" autocomplete="new-password"
+                   th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'"
+                   th:placeholder="${memberId == null} ? 'At least 8 characters' : 'Leave blank to keep current password'">
+            <div class="invalid-feedback" th:errors="*{password}">Error</div>
+        </div>
+
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a th:href="@{/members}" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+    </form>
+</main>
+</body>
+</html>

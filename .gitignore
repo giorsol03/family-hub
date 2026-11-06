@@ -3,6 +3,9 @@
 .env.*
 !.env.example
 
+# --- Local H2 database (dev profile) ---
+data/
+
 # --- Maven ---
 target/
 pom.xml.tag

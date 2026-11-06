@@ -78,7 +78,7 @@ UI (like a paper habit tracker):
 
 ## 6. Non-functional
 
-- Java 21, Spring Boot 3, Maven, PostgreSQL (Neon), Flyway migrations.
+- Java 21, Spring Boot 4, Maven, PostgreSQL (Neon), Flyway migrations.
 - Server-rendered UI: Thymeleaf + Bootstrap 5 (+ a little htmx/vanilla JS for popups and ticking). Mobile-friendly — it will mostly be used on phones.
 - Deployed on Render via Dockerfile; config through env vars.
 - Timezone: Europe/Nicosia.
