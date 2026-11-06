@@ -139,6 +139,52 @@ export interface ChoreTemplateInput {
   recurrenceInterval: number | null
 }
 
+// ---- recipes ----
+
+export interface Ingredient {
+  name: string
+  quantity: number
+  unit: QuantityUnit
+  /** used when the ingredient is added to the grocery list */
+  category: GroceryCategory | null
+}
+
+export interface RecipeSummary {
+  id: number
+  title: string
+  description: string | null
+  servings: number | null
+  prepMinutes: number | null
+  imageUrl: string | null
+  tags: string[]
+  ingredientCount: number
+}
+
+export interface Recipe {
+  id: number
+  title: string
+  description: string | null
+  servings: number | null
+  prepMinutes: number | null
+  instructions: string | null
+  imageUrl: string | null
+  tags: string[]
+  ingredients: Ingredient[]
+  createdBy: MemberSummary | null
+  createdAt: string
+}
+
+export interface RecipeInput {
+  title: string
+  description: string | null
+  servings: number | null
+  prepMinutes: number | null
+  instructions: string | null
+  imageUrl: string | null
+  tags: string[]
+  ingredients: Ingredient[]
+}
+
 export interface MemberInput {
   name: string
   username: string

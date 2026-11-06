@@ -83,6 +83,16 @@ export const api = {
   postForm: <T>(url: string, form: Record<string, string>) => request<T>('POST', url, { form }),
 }
 
+/**
+ * Server field paths use brackets for list items ("ingredients[0].name");
+ * @mantine/form uses dots ("ingredients.0.name").
+ */
+export function toFormErrors(fieldErrors: FieldErrors): FieldErrors {
+  return Object.fromEntries(
+    Object.entries(fieldErrors).map(([path, message]) => [path.replace(/\[(\d+)\]/g, '.$1'), message]),
+  )
+}
+
 export function isUnauthorized(error: unknown): boolean {
   return error instanceof ApiError && error.status === 401
 }
