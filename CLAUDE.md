@@ -12,7 +12,7 @@ Build plan / milestones: @docs/plan.md
 - **Frontend** (`frontend/`): React + Vite + TypeScript (strict)
   - UI components: Mantine (core, hooks, form, dates, notifications) + Tabler icons. No other CSS framework.
   - Routing: React Router. Server state: TanStack Query. Forms: `@mantine/form`.
-  - Tests: Vitest + React Testing Library. Lint: ESLint. Package manager: npm.
+  - Tests: Vitest + React Testing Library. Lint: oxlint. Package manager: npm. Requires Node ≥ 22.12.
 
 ## Structure
 Backend — package per feature under `com.solomonidis.familyhub`:
@@ -28,8 +28,8 @@ Frontend — `frontend/src/`:
 ## API conventions
 - All endpoints under `/api/**`, JSON in/out. Resource style: `GET /api/members`, `POST /api/members`, `PUT /api/members/{id}`, `POST /api/members/{id}/deactivate`.
 - Validation errors and business-rule errors return RFC 7807 `ProblemDetail` (400/404/409) with a `fieldErrors` map; the frontend shows them on the form fields.
-- Auth: Spring Security session cookie (+ remember-me). `POST /api/auth/login`, `POST /api/auth/logout`, `GET /api/auth/me`. Unauthenticated `/api/**` → 401 JSON (never a redirect).
-- CSRF: cookie-based (`XSRF-TOKEN` cookie → `X-XSRF-TOKEN` header), sent by `api/client.ts`.
+- Auth: Spring Security session cookie (+ remember-me). `POST /api/auth/login` (form-encoded `username`, `password`, `remember-me`; 204/401), `POST /api/auth/logout` (204), `GET /api/auth/me`. Unauthenticated `/api/**` → 401 (never a redirect).
+- CSRF: cookie-based (`XSRF-TOKEN` cookie → `X-XSRF-TOKEN` header), handled by `api/client.ts`; `GET /api/auth/csrf` issues the cookie when missing.
 - Dates as ISO strings (`LocalDate` → `2026-11-06`, instants in UTC). Household timezone: Europe/Nicosia (inject `Clock`).
 
 ## Running

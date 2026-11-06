@@ -11,7 +11,7 @@ Each milestone = one feature, backend + frontend together, ends with all checks 
 | # | Milestone | Status | Main deliverables |
 |---|-----------|--------|-------------------|
 | 1 | Foundation (server-rendered) | ✅ done (`aa4ae70`) | Boot skeleton, Flyway V1 `member`, login, members CRUD, Thymeleaf layout — **superseded by 1b** |
-| 1b | **Switch to REST API + React shell** | next | see below |
+| 1b | **Switch to REST API + React shell** | ✅ done | see below |
 | 2 | Grocery list | | `grocery_default`, `grocery_item`; merging service (G↔KG, ML↔L) + unit tests; list grouped by merchant → category; tick bought (optimistic update); clear bought; add from default; defaults page (deactivate / re-activate); seed defaults |
 | 3 | Chores | | `chore_template`, `chore`; Today / This week / Overdue tabs; assignee filter; recurrence → next instance on completion; seed templates |
 | 4 | Recipes | | `recipe`, `recipe_ingredient`, tags; list + detail + form with dynamic ingredient rows |
@@ -30,7 +30,7 @@ Each milestone = one feature, backend + frontend together, ends with all checks 
 - **Members API** (`member/MemberApiController`): `GET /api/members`, `GET /api/members/{id}`, `POST /api/members`,
   `PUT /api/members/{id}`, `POST /api/members/{id}/deactivate`, `POST /api/members/{id}/activate`.
   DTOs: `MemberResponse(id, name, username, color, active)`, `MemberRequest` (replaces `MemberForm`, same validation).
-- **Auth API** (`common/auth/AuthController`): `POST /api/auth/login` (JSON `{username, password, rememberMe}`),
+- **Auth API** (`common/auth/AuthController`): `POST /api/auth/login` (form-encoded, handled by Spring's form-login filter),
   `POST /api/auth/logout`, `GET /api/auth/me` → `MemberResponse` (fresh from DB, so name/colour edits show immediately).
 - **SecurityConfig**: no form-login page; JSON login via `AuthenticationManager` + `HttpSessionSecurityContextRepository`;
   remember-me kept; `/api/**` unauthenticated → 401 (`HttpStatusEntryPoint`); CSRF with `CookieCsrfTokenRepository.withHttpOnlyFalse()`

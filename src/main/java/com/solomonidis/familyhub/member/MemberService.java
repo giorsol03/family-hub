@@ -35,30 +35,30 @@ public class MemberService {
             .orElseThrow(() -> new NotFoundException("Member " + id + " not found"));
     }
 
-    public Member create(MemberForm form) {
-        String username = normalize(form.getUsername());
-        if (form.getPassword().isBlank()) {
+    public Member create(MemberRequest request) {
+        String username = normalize(request.username());
+        if (!request.hasPassword()) {
             throw new MemberException("password", "Password is required");
         }
         if (memberRepository.existsByUsername(username)) {
             throw new MemberException("username", "Username is already taken");
         }
-        Member member = new Member(form.getName().trim(), username,
-            passwordEncoder.encode(form.getPassword()), form.getColor().toLowerCase(Locale.ROOT));
+        Member member = new Member(request.name().trim(), username,
+            passwordEncoder.encode(request.password()), request.color().toLowerCase(Locale.ROOT));
         return memberRepository.save(member);
     }
 
-    public Member update(Long id, MemberForm form) {
+    public Member update(Long id, MemberRequest request) {
         Member member = get(id);
-        String username = normalize(form.getUsername());
+        String username = normalize(request.username());
         if (!username.equals(member.getUsername()) && memberRepository.existsByUsername(username)) {
             throw new MemberException("username", "Username is already taken");
         }
-        member.setName(form.getName().trim());
+        member.setName(request.name().trim());
         member.setUsername(username);
-        member.setColor(form.getColor().toLowerCase(Locale.ROOT));
-        if (!form.getPassword().isBlank()) {
-            member.setPasswordHash(passwordEncoder.encode(form.getPassword()));
+        member.setColor(request.color().toLowerCase(Locale.ROOT));
+        if (request.hasPassword()) {
+            member.setPasswordHash(passwordEncoder.encode(request.password()));
         }
         return member;
     }
@@ -80,11 +80,7 @@ public class MemberService {
         if (memberRepository.count() > 0) {
             return false;
         }
-        MemberForm form = new MemberForm();
-        form.setName(name);
-        form.setUsername(username);
-        form.setPassword(password);
-        create(form);
+        create(new MemberRequest(name, username, MemberRequest.DEFAULT_COLOR, password));
         return true;
     }
 

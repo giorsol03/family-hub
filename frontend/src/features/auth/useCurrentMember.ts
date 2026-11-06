@@ -1,0 +1,9 @@
+import { useQuery } from '@tanstack/react-query'
+import { getMe } from '../../api/auth'
+
+export const ME_QUERY_KEY = ['me'] as const
+
+/** The logged-in member; `data` is null when logged out. */
+export function useCurrentMember() {
+  return useQuery({ queryKey: ME_QUERY_KEY, queryFn: getMe, staleTime: 5 * 60 * 1000 })
+}

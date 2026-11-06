@@ -91,12 +91,7 @@ class MemberServiceTest {
         assertThat(memberRepository.findByUsername("someone")).isEmpty();
     }
 
-    private static MemberForm form(String name, String username, String color, String password) {
-        MemberForm form = new MemberForm();
-        form.setName(name);
-        form.setUsername(username);
-        form.setColor(color);
-        form.setPassword(password);
-        return form;
+    private static MemberRequest form(String name, String username, String color, String password) {
+        return new MemberRequest(name, username, color, password);
     }
 }
