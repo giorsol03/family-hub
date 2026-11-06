@@ -74,6 +74,71 @@ export interface GroceryDefaultInput {
   preferredMerchant: Merchant | null
 }
 
+// ---- chores ----
+
+export const RECURRENCES = ['NONE', 'DAILY', 'WEEKLY', 'EVERY_N_DAYS', 'MONTHLY'] as const
+export type Recurrence = (typeof RECURRENCES)[number]
+export type ChoreStatus = 'TODO' | 'DONE' | 'SKIPPED'
+export type ChoreView = 'TODAY' | 'WEEK' | 'OVERDUE'
+
+/** ISO date, e.g. "2026-11-09" */
+export type IsoDate = string
+
+export interface Chore {
+  id: number
+  title: string
+  description: string | null
+  scheduledDate: IsoDate
+  assignee: MemberSummary | null
+  status: ChoreStatus
+  completedAt: string | null
+  completedBy: MemberSummary | null
+  templateId: number | null
+  recurrence: Recurrence
+  estimatedMinutes: number | null
+}
+
+export interface ChoreList {
+  view: ChoreView
+  today: IsoDate
+  from: IsoDate | null
+  to: IsoDate
+  chores: Chore[]
+}
+
+export interface ChoreInput {
+  title: string
+  description: string | null
+  scheduledDate: IsoDate
+  assigneeId: number | null
+}
+
+export interface FinishResult {
+  chore: Chore
+  /** auto-created next occurrence for recurring chores */
+  next: Chore | null
+}
+
+export interface ChoreTemplate {
+  id: number
+  name: string
+  description: string | null
+  defaultAssignee: MemberSummary | null
+  estimatedMinutes: number | null
+  recurrence: Recurrence
+  recurrenceInterval: number | null
+  active: boolean
+}
+
+export interface ChoreTemplateInput {
+  name: string
+  description: string | null
+  defaultAssigneeId: number | null
+  estimatedMinutes: number | null
+  recurrence: Recurrence
+  recurrenceInterval: number | null
+}
+
 export interface MemberInput {
   name: string
   username: string

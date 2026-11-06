@@ -13,7 +13,7 @@ Each milestone = one feature, backend + frontend together, ends with all checks 
 | 1 | Foundation (server-rendered) | ✅ done (`aa4ae70`) | Boot skeleton, Flyway V1 `member`, login, members CRUD, Thymeleaf layout — **superseded by 1b** |
 | 1b | **Switch to REST API + React shell** | ✅ done | see below |
 | 2 | Grocery list | ✅ done | `grocery_default`, `grocery_item`; merging service (G↔KG, ML↔L) + unit tests; list grouped by merchant → category; tick bought (optimistic update); clear bought; add from default; defaults page (deactivate / re-activate); seed defaults |
-| 3 | Chores | | `chore_template`, `chore`; Today / This week / Overdue tabs; assignee filter; recurrence → next instance on completion; seed templates |
+| 3 | Chores | ✅ done | `chore_template`, `chore`; Today / This week / Overdue tabs; assignee filter; recurrence → next instance on completion; seed templates |
 | 4 | Recipes | | `recipe`, `recipe_ingredient`, tags; list + detail + form with dynamic ingredient rows |
 | 5 | Weekly meal plan | | `meal_plan_entry`; Mon–Sun × slot grid (stacked days on phones); "add ingredients to grocery list?" modal (checkboxes, select all / none) reusing the M2 merging service, source=RECIPE |
 | 6 | Calendar | | `event`, `event_attendee`; month + week views; tap a day to add; meal-plan entries shown read-only; member filter |

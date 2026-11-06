@@ -2,6 +2,8 @@ import { Route, Routes } from 'react-router'
 import { AppLayout } from './components/AppLayout'
 import { NotFoundPage } from './components/NotFoundPage'
 import { LoginPage } from './features/auth/LoginPage'
+import { ChoresPage } from './features/chores/ChoresPage'
+import { ChoreTemplatesPage } from './features/chores/ChoreTemplatesPage'
 import { RequireAuth } from './features/auth/RequireAuth'
 import { GroceryDefaultsPage } from './features/groceries/GroceryDefaultsPage'
 import { GroceryListPage } from './features/groceries/GroceryListPage'
@@ -16,6 +18,8 @@ export default function App() {
       <Route element={<RequireAuth />}>
         <Route element={<AppLayout />}>
           <Route index element={<HomePage />} />
+          <Route path="chores" element={<ChoresPage />} />
+          <Route path="chores/templates" element={<ChoreTemplatesPage />} />
           <Route path="groceries" element={<GroceryListPage />} />
           <Route path="groceries/defaults" element={<GroceryDefaultsPage />} />
           <Route path="members" element={<MembersPage />} />

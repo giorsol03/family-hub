@@ -1,4 +1,5 @@
 import { MantineProvider } from '@mantine/core'
+import { Notifications } from '@mantine/notifications'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { render } from '@testing-library/react'
 import type { ReactElement } from 'react'
@@ -20,6 +21,7 @@ export function renderWithProviders(ui: ReactElement, { route = '/', me = ADMIN 
   queryClient.setQueryData(ME_QUERY_KEY, me)
   return render(
     <MantineProvider theme={theme} env="test">
+      <Notifications />
       <QueryClientProvider client={queryClient}>
         <MemoryRouter initialEntries={[route]}>{ui}</MemoryRouter>
       </QueryClientProvider>
