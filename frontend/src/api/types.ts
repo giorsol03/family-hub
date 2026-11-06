@@ -216,6 +216,50 @@ export interface AddToGroceriesResult {
   items: GroceryItem[]
 }
 
+// ---- calendar ----
+
+export const EVENT_TYPES = ['EVENT', 'MEAL', 'NIGHT_OUT', 'OTHER'] as const
+export type EventType = (typeof EVENT_TYPES)[number]
+
+/** Local date-time in the household timezone, e.g. "2026-11-14T20:00:00" */
+export type LocalDateTime = string
+
+export interface CalendarItem {
+  /** MEAL_PLAN items are read-only here (edit them in the meal planner) */
+  kind: 'EVENT' | 'MEAL_PLAN'
+  id: number
+  title: string
+  type: EventType
+  allDay: boolean
+  start: LocalDateTime
+  /** for all-day items: midnight of the inclusive last day */
+  end: LocalDateTime
+  location: string | null
+  description: string | null
+  attendees: MemberSummary[]
+  createdBy: MemberSummary | null
+  slot: MealSlot | null
+  recipeId: number | null
+}
+
+export interface CalendarRange {
+  from: IsoDate
+  to: IsoDate
+  today: IsoDate
+  items: CalendarItem[]
+}
+
+export interface EventInput {
+  title: string
+  description: string | null
+  location: string | null
+  type: EventType
+  allDay: boolean
+  start: LocalDateTime
+  end: LocalDateTime
+  attendeeIds: number[]
+}
+
 export interface MemberInput {
   name: string
   username: string

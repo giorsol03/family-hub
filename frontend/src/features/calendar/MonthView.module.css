@@ -1,0 +1,56 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  border-top: 1px solid var(--mantine-color-default-border);
+  border-left: 1px solid var(--mantine-color-default-border);
+}
+
+.weekday {
+  text-align: center;
+  padding: 4px 0;
+  border-right: 1px solid var(--mantine-color-default-border);
+  border-bottom: 1px solid var(--mantine-color-default-border);
+}
+
+.day {
+  min-height: 52px;
+  padding: 4px;
+  border-right: 1px solid var(--mantine-color-default-border);
+  border-bottom: 1px solid var(--mantine-color-default-border);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+
+  @media (min-width: $mantine-breakpoint-sm) {
+    min-height: 96px;
+  }
+
+  &:hover {
+    background: var(--mantine-color-default-hover);
+  }
+
+  &[data-outside] {
+    opacity: 0.45;
+  }
+
+  &[data-selected] {
+    background: var(--mantine-primary-color-light);
+  }
+
+  &[data-today] .number {
+    color: var(--mantine-primary-color-filled);
+  }
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.label {
+  border-radius: 4px;
+  padding: 0 4px;
+  margin-top: 2px;
+}

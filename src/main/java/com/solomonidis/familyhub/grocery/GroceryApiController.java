@@ -57,7 +57,7 @@ public class GroceryApiController {
     }
 
     @PutMapping("/items/{id}/bought")
-    public GroceryItemResponse setBought(@PathVariable Long id, @RequestBody BoughtRequest request) {
+    public GroceryItemResponse setBought(@PathVariable Long id, @Valid @RequestBody BoughtRequest request) {
         return groceryService.setBought(id, request.bought());
     }
 

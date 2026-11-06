@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router'
 import { AppLayout } from './components/AppLayout'
 import { NotFoundPage } from './components/NotFoundPage'
 import { LoginPage } from './features/auth/LoginPage'
+import { CalendarPage } from './features/calendar/CalendarPage'
 import { ChoresPage } from './features/chores/ChoresPage'
 import { ChoreTemplatesPage } from './features/chores/ChoreTemplatesPage'
 import { RequireAuth } from './features/auth/RequireAuth'
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="groceries" element={<GroceryListPage />} />
           <Route path="groceries/defaults" element={<GroceryDefaultsPage />} />
           <Route path="meal-plan" element={<MealPlanPage />} />
+          <Route path="calendar" element={<CalendarPage />} />
           <Route path="recipes" element={<RecipesPage />} />
           <Route path="recipes/new" element={<RecipeFormPage />} />
           <Route path="recipes/:id" element={<RecipeDetailPage />} />

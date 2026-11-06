@@ -30,7 +30,7 @@ describe('AppLayout', () => {
 
     expect(within(sidebar).getByRole('link', { name: /Members/ })).toHaveAttribute('href', '/members')
     expect(within(sidebar).getByRole('link', { name: /Groceries/ })).toHaveAttribute('href', '/groceries')
-    expect(within(sidebar).queryByRole('link', { name: /Calendar/ })).not.toBeInTheDocument()
+    expect(within(sidebar).queryByRole('link', { name: /Goals/ })).not.toBeInTheDocument()
     expect(within(sidebar).getAllByText('Soon').length).toBe(NAV_ITEMS.filter((i) => !i.enabled).length)
   })
 })

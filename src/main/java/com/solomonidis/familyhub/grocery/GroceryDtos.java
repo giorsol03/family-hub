@@ -52,7 +52,7 @@ public final class GroceryDtos {
     public record AddItemResponse(GroceryItemResponse item, boolean merged) {
     }
 
-    public record BoughtRequest(boolean bought) {
+    public record BoughtRequest(@NotNull Boolean bought) {
     }
 
     public record ClearBoughtResponse(long removed) {
